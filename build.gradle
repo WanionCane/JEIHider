@@ -24,6 +24,16 @@ version = "1.1"
 group= "wanion.jeihider" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "JEIHider"
 
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'wanion.jeihider.core.JEIHiderCore',
+                'FMLCorePluginContainsFMLMod': 'false'
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 minecraft {
     version = "1.10.2-12.18.0.2007-1.10.0"
     runDir = "run"
