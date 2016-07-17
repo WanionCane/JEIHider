@@ -29,11 +29,11 @@ public class JEIHider implements IModPlugin
     @SuppressWarnings("unchecked")
     public JEIHider() throws ClassNotFoundException
     {
-        final Configuration config = new Configuration(new File("." + File.separatorChar + "JEI Hider.cfg"));
+        final Configuration config = new Configuration(new File("." + File.separatorChar + "config" + File.separatorChar + "JEI Hider.cfg"));
         hideRecyclerRecipes = Loader.isModLoaded("IC2") && config.get("hideRecyclerRecipes", Configuration.CATEGORY_GENERAL, false).getBoolean();
-        hideEnchantmentRecipes = Loader.isModLoaded("IC2") && config.get("hideEnchantmentRecipes", Configuration.CATEGORY_GENERAL, false).getBoolean();
+        hideEnchantmentRecipes = Loader.isModLoaded("jeresources") && config.get("hideEnchantmentRecipes", Configuration.CATEGORY_GENERAL, false).getBoolean();
         recyclerCategoryClass = hideRecyclerRecipes ? (Class<? extends IRecipeCategory>) Class.forName("ic2.jeiIntegration.recipe.misc.ScrapboxRecipeCategory") : null;
-        enchantmentCategoryClass = hideEnchantmentRecipes ? (Class<? extends IRecipeCategory>) Class.forName("") : null;
+        enchantmentCategoryClass = hideEnchantmentRecipes ? (Class<? extends IRecipeCategory>) Class.forName("jeresources.jei.enchantment.EnchantmentCategory") : null;
     }
 
     @Override
