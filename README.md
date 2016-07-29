@@ -1,2 +1,2 @@
-# JEIHider
-a plugin about hiding all the things.
+# JEI Hider
+a plugin for Just Enough Items (JEI) about hiding all the useless things.
