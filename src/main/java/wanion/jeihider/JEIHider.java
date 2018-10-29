@@ -54,8 +54,8 @@ public class JEIHider implements IModPlugin
         if (itemStacksToHide.isEmpty()) {
             final IRecipeRegistry iRecipeRegistry = iJeiRuntime.getRecipeRegistry();
             for (final ItemStack itemStack : iItemRegistry.getIngredients(ItemStack.class)) {
-                final List<IRecipeCategory> recipeCategoriesOfInput = iRecipeRegistry.getRecipeCategories(new Focus<ItemStack>(IFocus.Mode.INPUT, itemStack));
-                final List<IRecipeCategory> recipeCategoriesOfOutput = iRecipeRegistry.getRecipeCategories(new Focus<ItemStack>(IFocus.Mode.OUTPUT, itemStack));
+                final List<IRecipeCategory> recipeCategoriesOfInput = iRecipeRegistry.getRecipeCategories(new Focus<>(IFocus.Mode.INPUT, itemStack));
+                final List<IRecipeCategory> recipeCategoriesOfOutput = iRecipeRegistry.getRecipeCategories(new Focus<>(IFocus.Mode.OUTPUT, itemStack));
                 if (recipeCategoriesOfInput.isEmpty() && recipeCategoriesOfOutput.isEmpty())
                     itemStacksToHide.add(itemStack);
                 if ((hideRecyclerRecipes || hideEnchantmentRecipes) && !recipeCategoriesOfInput.isEmpty() && recipeCategoriesOfOutput.isEmpty()) {
