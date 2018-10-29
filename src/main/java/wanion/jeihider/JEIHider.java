@@ -70,9 +70,6 @@ public class JEIHider implements IModPlugin
                             itemStacksToHide.add(itemStack);
                 }
             }
-            System.out.println("STARTTTTTTT");
-            itemStacksToHide.forEach(System.out::println);
-            System.out.println("STOPPPPPPppp");
         }
         itemStacksToHide.forEach(itemBlacklist::addItemToBlacklist);
     }
