@@ -5,7 +5,10 @@ package wanion.jeihider;
  */
 
 import mezz.jei.api.*;
+import mezz.jei.api.ingredients.IIngredientRegistry;
+import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IRecipeCategory;
+import mezz.jei.gui.Focus;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
@@ -19,7 +22,7 @@ import java.util.List;
 public class JEIHider implements IModPlugin
 {
     private IItemBlacklist itemBlacklist;
-    private IItemRegistry iItemRegistry;
+    private IIngredientRegistry iItemRegistry;
     private final List<ItemStack> itemStacksToHide = new ArrayList<>();
     private final boolean hideRecyclerRecipes;
     private final boolean hideEnchantmentRecipes;
@@ -42,7 +45,7 @@ public class JEIHider implements IModPlugin
     public void register(@Nonnull IModRegistry iModRegistry)
     {
         itemBlacklist = iModRegistry.getJeiHelpers().getItemBlacklist();
-        iItemRegistry = iModRegistry.getItemRegistry();
+        iItemRegistry = iModRegistry.getIngredientRegistry();
     }
 
     @Override
@@ -50,9 +53,9 @@ public class JEIHider implements IModPlugin
     {
         if (itemStacksToHide.isEmpty()) {
             final IRecipeRegistry iRecipeRegistry = iJeiRuntime.getRecipeRegistry();
-            for (final ItemStack itemStack : iItemRegistry.getItemList()) {
-                final List<IRecipeCategory> recipeCategoriesOfInput = iRecipeRegistry.getRecipeCategoriesWithInput(itemStack);
-                final List<IRecipeCategory> recipeCategoriesOfOutput = iRecipeRegistry.getRecipeCategoriesWithOutput(itemStack);
+            for (final ItemStack itemStack : iItemRegistry.getIngredients(ItemStack.class)) {
+                final List<IRecipeCategory> recipeCategoriesOfInput = iRecipeRegistry.getRecipeCategories(new Focus<ItemStack>(IFocus.Mode.INPUT, itemStack));
+                final List<IRecipeCategory> recipeCategoriesOfOutput = iRecipeRegistry.getRecipeCategories(new Focus<ItemStack>(IFocus.Mode.OUTPUT, itemStack));
                 if (recipeCategoriesOfInput.isEmpty() && recipeCategoriesOfOutput.isEmpty())
                     itemStacksToHide.add(itemStack);
                 if ((hideRecyclerRecipes || hideEnchantmentRecipes) && !recipeCategoriesOfInput.isEmpty() && recipeCategoriesOfOutput.isEmpty()) {
